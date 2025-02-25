@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Email Confirmation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Agbalumo&family=Nunito:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style type="text/css">
+      /**
+   * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
+   */
+      @media screen {
+        @font-face {
+          font-family: 'Source Sans Pro';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'),
+            url(https://fonts.gstatic.com/s/sourcesanspro/v10/ODelI1aHBYDBqgeIAH2zlBM0YzuT7MdOe03otPbuUS0.woff)
+              format('woff');
+        }
+        @font-face {
+          font-family: 'Source Sans Pro';
+          font-style: normal;
+          font-weight: 700;
+          src: local('Source Sans Pro Bold'), local('SourceSansPro-Bold'),
+            url(https://fonts.gstatic.com/s/sourcesanspro/v10/toadOcfmlt9b38dHJxOBGFkQc6VGVFSmCnC_l7QZG60.woff)
+              format('woff');
+        }
+      }
+
+      /**
+   * Avoid browser level font resizing.
+   * 1. Windows Mobile
+   * 2. iOS / OSX
+   */
+      body,
+      table,
+      td,
+      a {
+        -ms-text-size-adjust: 100%; /* 1 */
+        -webkit-text-size-adjust: 100%; /* 2 */
+      }
+      /**
+   * Remove extra space added to tables and cells in Outlook.
+   */
+      table,
+      td {
+        mso-table-rspace: 0pt;
+        mso-table-lspace: 0pt;
+      }
+      /**
+   * Better fluid images in Internet Explorer.
+   */
+      img {
+        -ms-interpolation-mode: bicubic;
+      }
+      /**
+   * Remove blue links for iOS devices.
+   */
+      a[x-apple-data-detectors] {
+        font-family: inherit !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+        color: inherit !important;
+        text-decoration: none !important;
+      }
+      /**
+   * Fix centering issues in Android 4.4.
+   */
+      div[style*='margin: 16px 0;'] {
+        margin: 0 !important;
+      }
+      body {
+        width: 100% !important;
+        height: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      /**
+   * Collapse table borders to avoid space between cells.
+   */
+      table {
+        border-collapse: collapse !important;
+      }
+      a {
+        color: #1a82e2;
+      }
+      img {
+        height: auto;
+        line-height: 100%;
+        text-decoration: none;
+        border: 0;
+        outline: none;
+      }
+      @media screen and (max-width: 768px) {
+        #top-card {
+          width: 300px;
+          background-color: blue;
+        }
+      }
+    </style>
+  </head>
+  <body style="background-color: #e9ecef">
+    <!-- start preheader -->
+    <div
+      class="preheader"
+      style="
+        display: none;
+        max-width: 0;
+        max-height: 0;
+        overflow: hidden;
+        font-size: 1px;
+        line-height: 1px;
+        color: #fff;
+        opacity: 0;
+      "
+    >
+      Upcoming Schedule Notification
+    </div>
+    <!-- end preheader -->
+
+    <!-- start body -->
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+      <!-- start logo -->
+      <tr>
+        <td align="center" bgcolor="#e9ecef">
+          <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            style="max-width: 600px"
+          >
+            <tr>
+              <td
+                align="center"
+                valign="top"
+                style="
+                  background-clip: border-box;
+                  background-size: cover;
+                  width: 100%;
+                  max-width: 600px;
+                  height: 260px;
+                  background-color: #fff;
+                  background-image: url(https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/schedule-request.png);
+                "
+              >
+                <!-- <img
+                  src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/schedule-request.png"
+                  style="width: 100%"
+                /> -->
+                <!-- <div> -->
+                <div
+                  id="top-card"
+                  style="
+                    max-width: 600px;
+                    position: relative;
+                    top: 170px;
+                    margin: 0 15px;
+                    background-color: #fff;
+                    border: 2px solid rgba(247, 247, 249, 0.97);
+                    border-radius: 15px;
+                    box-shadow: 0px 2px 49% 1px #000;
+                    text-align: left;
+                    padding: 23px 26px;
+                  "
+                >
+                  <table style="align-self: left">
+                    <tr>
+                      <td>
+                        <img
+                          src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/calendar.png"
+                          style="max-height: 24px"
+                        />
+                      </td>
+                      <td>
+                        <p
+                          style="
+                            max-height: 24px;
+                            font-size: 24;
+                            font-weight: 600;
+                            color: #5d6272;
+                            font-family: Nunito;
+                            margin: 0;
+                            margin-left: 4px;
+                          "
+                        >
+                          Wed, Mar 30, 2023
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <img
+                          src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/clock.png"
+                          style="max-height: 24px"
+                        />
+                      </td>
+                      <td>
+                        <p
+                          style="
+                            max-height: 24px;
+                            font-size: 24;
+                            font-weight: 600;
+                            color: #5d6272;
+                            font-family: Nunito;
+                            margin: 0;
+                            margin-left: 4px;
+                          "
+                        >
+                          10:00am 05:00pm
+                        </p>
+                      </td>
+                    </tr>
+                  </table>
+                  <div style="text-align: start; width: 100%">
+                    <table
+                      border="0"
+                      cellpadding="0"
+                      cellspacing="0"
+                      width="100%"
+                      style="
+                        align-self: flex-start;
+                        max-width: 600px;
+                        width: 100%;
+                      "
+                    >
+                      <tr>
+                        <td style="width: 71.5px">
+                          <img
+                            src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/dummy-image.png"
+                            style="
+                              width: 71.5px;
+                              height: 71.5px;
+                              border-radius: 50%;
+                            "
+                          />
+                        </td>
+                        <td>
+                          <table
+                            border="0"
+                            cellpadding="0"
+                            cellspacing="0"
+                            width="100%"
+                            style="max-width: 600px; margin-left: 18px"
+                          >
+                            <tr style="">
+                              <td style="display: inline">
+                                <p
+                                  style="
+                                    font-size: 27px;
+                                    font-weight: 700;
+                                    color: #1e1926;
+                                    font-family: Nunito;
+                                    display: inline;
+                                  "
+                                >
+                                  Julie Stanford
+                                </p>
+                                <img
+                                  src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/verified.png"
+                                />
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <div
+                                  style="
+                                    padding: 9px 14px;
+                                    background-color: #ecf3ff;
+                                    width: 50%;
+                                    border-radius: 18px;
+                                  "
+                                >
+                                  <table>
+                                    <tr>
+                                      <td>
+                                        <div
+                                          style="
+                                            width: 9px;
+                                            height: 9px;
+                                            border-radius: 5px;
+                                            background-color: #1a6bf4;
+                                            color: #1a6bf4;
+                                          "
+                                        ></div>
+                                      </td>
+                                      <td>
+                                        <p
+                                          style="
+                                            font-family: Nunito;
+                                            font-size: 21px;
+                                            font-weight: 600;
+                                            color: #1a6bf4;
+                                            padding: 0;
+                                            margin: 0;
+                                            margin-left: 4px;
+                                          "
+                                        >
+                                          Inspection
+                                        </p>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+                <!-- </div> -->
+              </td>
+            </tr>
+          </table>
+          <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+        </td>
+      </tr>
+      <!-- end logo -->
+
+      <!-- start hero -->
+      <tr>
+        <td align="center" bgcolor="#e9ecef" style="padding-top: 0px">
+          <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            style="max-width: 600px"
+          >
+            <tr>
+              <td
+                align="left"
+                bgcolor="#ffffff"
+                style="
+                  padding: 60px 24px 0;
+                  font-family: Nunito 'Source Sans Pro', Helvetica, Arial,
+                    sans-serif;
+                  border-top: 0px solid #d4dadf;
+                "
+              >
+                <h1
+                  style="
+                    margin: 0;
+                    font-family: Nunito;
+                    font-size: 38px;
+                    font-weight: 600;
+                    letter-spacing: -1px;
+                    line-height: 48px;
+                    color: #362b48;
+                    text-align: center;
+                    margin-top: 90px;
+                  "
+                >
+                  Hi {(Name)}! You’ve got an upcoming event.
+                </h1>
+              </td>
+            </tr>
+          </table>
+          <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+        </td>
+      </tr>
+      <!-- end hero -->
+
+      <!-- start copy block -->
+      <tr>
+        <td align="center" bgcolor="#e9ecef">
+          <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            style="max-width: 600px"
+          >
+            <!-- start copy -->
+            <tr>
+              <td
+                align="left"
+                bgcolor="#ffffff"
+                style="
+                  padding: 40px 24px 0 24px;
+                  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+                  font-size: 16px;
+                  line-height: 24px;
+                "
+              >
+                <p
+                  style="
+                    margin: 0;
+                    text-align: center;
+                    font-family: Nunito;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #362b48;
+                  "
+                >
+                  To view the rest of events you have lined up, click on the
+                  link below:
+                </p>
+              </td>
+            </tr>
+            <!-- end copy -->
+
+            <!-- start button -->
+            <tr>
+              <td align="left" bgcolor="#ffffff">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tr>
+                    <td
+                      align="center"
+                      bgcolor="#ffffff"
+                      style="padding: 40px 12px 0 12px"
+                    >
+                      <table border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td align="center">
+                            <button
+                              style="
+                                display: inline-block;
+                                padding: 16px 36px;
+                                font-family: Nunito, 'Source Sans Pro',
+                                  Helvetica, Arial, sans-serif;
+                                font-size: 28px;
+                                line-height: 42px;
+                                color: #ffffff;
+                                background-color: #8357ff;
+                                text-decoration: none;
+                                border-radius: 15px;
+                                border-width: 0px;
+                              "
+                            >
+                              Go to App
+                            </button>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+            <!-- end button -->
+          </table>
+          <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+        </td>
+      </tr>
+      <!-- end copy block -->
+
+      <!-- start footer -->
+      <tr>
+        <td align="center" bgcolor="#e9ecef">
+          <!--[if (gte mso 9)|(IE)]>
+        <table align="center" border="0" cellpadding="0" cellspacing="0" width="600">
+        <tr>
+        <td align="center" valign="top" width="600">
+        <![endif]-->
+          <table
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="100%"
+            style="max-width: 600px"
+          >
+            <!-- start permission -->
+            <tr>
+              <td
+                align="center"
+                bgcolor="#FFF"
+                style="
+                  padding: 60px 24px 12px 24px;
+                  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+                  font-size: 14px;
+                  line-height: 20px;
+                  color: #666;
+                "
+              >
+                <hr />
+                <p
+                  style="
+                    margin: 0;
+                    text-align: center;
+                    font-family: Nunito;
+                    font-weight: 700;
+                    font-size: 21px;
+                    color: #362b48;
+                    margin: auto;
+                    margin-top: 20px;
+                  "
+                >
+                  You have recieved this email because we recieved a request to
+                  create action for your account. If you didn’t request action
+                  you can safely delete this email.
+                </p>
+              </td>
+            </tr>
+            <!-- end permission -->
+
+            <!-- start unsubscribe -->
+            <tr>
+              <td
+                align="center"
+                bgcolor="#FFF"
+                style="
+                  padding: 30px 24px 12px 24px;
+                  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+                  font-size: 14px;
+                  line-height: 20px;
+                  color: #666;
+                "
+              >
+                <p
+                  style="
+                    margin: 0;
+                    text-align: center;
+                    font-family: Nunito;
+                    font-weight: 700;
+                    font-size: 12px;
+                    color: #362b48;
+                    margin: auto;
+                  "
+                >
+                  <a
+                    href="https://www.blogdesire.com"
+                    target="_blank"
+                    style="color: #362b48"
+                    >unsubscribe</a
+                  >
+                </p>
+              </td>
+            </tr>
+            <!-- end unsubscribe -->
+
+            <!-- start copyright -->
+            <tr>
+              <td
+                align="center"
+                bgcolor="#FFF"
+                style="
+                  padding: 50px 24px 12px 24px;
+                  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+                  font-size: 14px;
+                  line-height: 20px;
+                  color: #666;
+                "
+              >
+                <p
+                  style="
+                    margin: 0;
+                    text-align: center;
+                    font-family: Nunito;
+                    font-weight: 700;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: #362b48;
+                    margin: auto;
+                  "
+                >
+                  © 2023 EZrealtour. All rights reserved.
+                </p>
+              </td>
+            </tr>
+            <!-- end copyright -->
+
+            <!-- start Logo -->
+            <tr>
+              <td
+                align="center"
+                bgcolor="#FFF"
+                style="
+                  padding: 60px 24px 12px 40px;
+                  font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+                  font-size: 14px;
+                  line-height: 20px;
+                  color: #666;
+                  border-bottom: 23px solid #362b48;
+                "
+              >
+                <img
+                  src="https://ezrealtour.s3.amazonaws.com/ezrealtour/email-templates/EZRealTour_email_footer_logo.png"
+                />
+              </td>
+            </tr>
+            <!-- end Logo -->
+          </table>
+          <!--[if (gte mso 9)|(IE)]>
+        </td>
+        </tr>
+        </table>
+        <![endif]-->
+        </td>
+      </tr>
+      <!-- end footer -->
+    </table>
+    <!-- end body -->
+  </body>
+</html>
