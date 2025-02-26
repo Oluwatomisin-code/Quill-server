@@ -2,7 +2,7 @@
     "name": "quill-server",
     "version": "0.0.0",
     "description": "dev server quill",
-    "main": "dist/src/index.js",
+    "main": "build/src/index.js",
     "types": "build/src/index.d.ts",
     "files": [
         "build/src"
