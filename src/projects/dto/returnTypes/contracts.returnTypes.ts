@@ -1,4 +1,4 @@
-import {Field, InputType, ObjectType} from 'type-graphql';
+import {Field, ObjectType} from 'type-graphql';
 import ResolverResponse from '../../../utilities/resolverResponse';
 
 import Contract from '../../models/project.schema';

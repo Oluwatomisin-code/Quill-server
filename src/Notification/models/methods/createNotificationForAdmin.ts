@@ -3,7 +3,6 @@ import {pubSub} from '../../../graphql/pubSub';
 import {createNotificationInput} from 'Notification/dto/notification.input';
 import Notification from '../../../Notification/models/notification.model'; // Adjust to your actual path
 import User, {UserRole} from '../../../users/models/users.schema';
-import {notificationResponse} from 'Notification/dto/notification.returnTypes';
 
 const userModel = getModelForClass(User);
 
@@ -61,6 +60,7 @@ const createNotificationForAdmin = async (
 
 // Helper function to send an email notification
 const sendEmailNotification = async (email: string, notification: any) => {
+  console.log(email, notification, 'log email and not');
   // Use your nodemailer code to send the email
   // For example, send notification.subtext in the email body
 };

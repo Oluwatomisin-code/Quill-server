@@ -122,7 +122,7 @@ export default async function getAllProjects(
     },
   ]);
 
-  projects.forEach((item, index) => {
+  projects.forEach(item => {
     switch (item.projectType) {
       case 'UI':
         const uiDetails = new uiProject(); // Create a new instance

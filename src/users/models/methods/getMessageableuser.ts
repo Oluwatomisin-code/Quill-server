@@ -7,6 +7,7 @@ export default async function getMessageableUsers(
   userModel: ReturnModelType<typeof User>,
   input: usersFilterInput
 ) {
+  console.log(userModel, 'getMessageableUsers');
   const messageable = await ProjectModel.aggregate([
     {
       $match:

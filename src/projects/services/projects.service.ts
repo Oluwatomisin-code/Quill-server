@@ -4,8 +4,6 @@ import {Service} from 'typedi';
 import ClientResponse from '../../utilities/response';
 import {GraphQLError} from 'graphql';
 import {
-  addCompanyInput,
-  editCompanyInput,
   deleteContractInput,
   CreateProjectInput,
   assignDesignerInput,
@@ -17,8 +15,7 @@ import {
   NotificationReferenceType,
   NotificationType,
 } from '../../Notification/models/notification.schema';
-import {pubSub} from '../../graphql/pubSub';
-import sendPushNotification from '../../Notification/models/methods/sendPushNotification';
+
 import User from 'users/models/users.schema';
 import {ProjectType} from '../../projects/models/project.schema';
 
@@ -36,7 +33,7 @@ export class ContractsService {
           : await ProjectModel.createUIProject(
               input as CreateProjectInput & {clientId: string}
             );
-      const notification = await NotificationModel.createNotificationForAdmin({
+      await NotificationModel.createNotificationForAdmin({
         // user: null,
         sender: input.clientId,
         title: NotificationType.PROJECTCREATED,

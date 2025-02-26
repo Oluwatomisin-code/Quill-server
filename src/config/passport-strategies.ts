@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs';
 import {GraphQLLocalStrategy} from 'graphql-passport';
 import passport from 'passport';
 import UserModel from '../users/models/users.model';
-import User, {UserStatus} from '../users/models/users.schema';
+import User from '../users/models/users.schema';
 
 type CallbackFn<T> = (err?: Error | null, ret?: T) => void;
 

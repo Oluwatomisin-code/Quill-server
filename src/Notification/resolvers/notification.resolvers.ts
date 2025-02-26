@@ -11,17 +11,11 @@ import {
 import {Service} from 'typedi';
 import {NotificationService} from '../services/notification.service';
 import {
-  notificationResponse,
   notificationsResponse,
   notificationSub,
 } from '../dto/notification.returnTypes';
 import User, {UserRole} from '../../users/models/users.schema';
-import {
-  NotificationSubscriptionArgs,
-  // NotificationSubscriptionArgs,
-  notificationsFilterInput,
-} from '../dto/notification.input';
-import ClientResponse from '../../utilities/response';
+import {notificationsFilterInput} from '../dto/notification.input';
 
 @Service()
 @Resolver()
@@ -58,8 +52,8 @@ export default class NotificationResolver {
     topics: 'NOTIFICATIONS',
   })
   newNotification(
-    @Root() notification: notificationSub,
-    @Arg('args') args: NotificationSubscriptionArgs
+    @Root() notification: notificationSub
+    // @Arg('args') args: NotificationSubscriptionArgs
   ): notificationSub {
     console.log(notification, 'called');
 

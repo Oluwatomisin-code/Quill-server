@@ -21,13 +21,13 @@ export default async function resendOtp(
     new UserMailer().forgotPassword({
       email: input.email,
       passwordResetToken,
-      name: updatedUser.firstName,
+      name: (updatedUser as any)?.firstName,
     });
   } else {
     new UserMailer().createUser({
       email: input.email,
       verificationToken: passwordResetToken,
-      name: updatedUser.firstName,
+      name: (updatedUser as any)?.firstName,
     });
   }
   return updatedUser;

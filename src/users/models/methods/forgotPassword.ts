@@ -19,7 +19,7 @@ export default async function forgotPassword(
   new UserMailer().forgotPassword({
     email,
     passwordResetToken,
-    name: updatedUser.firstName,
+    name: (updatedUser as any)?.firstName,
   });
   return updatedUser;
 }

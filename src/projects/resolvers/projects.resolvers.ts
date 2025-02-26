@@ -15,8 +15,6 @@ import {
   assignDesignerInput,
   CreateProjectInput,
   deleteContractInput,
-  editCompanyInput,
-  getContractByUserIdInput,
   getProjectByIdInput,
   getProjectsByUserIdInput,
 } from '../dto/inputs/projects.input';
@@ -49,10 +47,7 @@ export default class ProjectsResolver {
 
   @Authorized([UserRole.CLIENT])
   @Query(() => CountResponse)
-  async countProjectsThisMonth(
-    @Ctx('getUser') getUser: () => User,
-    @PubSub() pubSub: PubSubEngine
-  ) {
+  async countProjectsThisMonth(@Ctx('getUser') getUser: () => User) {
     const userId = getUser()._id;
     const count = this.contractsService.countProjectsThisMonth(userId);
 
@@ -61,10 +56,7 @@ export default class ProjectsResolver {
 
   @Authorized([UserRole.CLIENT])
   @Query(() => CountResponse)
-  async getUserSubscription(
-    @Ctx('getUser') getUser: () => User,
-    @PubSub() pubSub: PubSubEngine
-  ) {
+  async getUserSubscription(@Ctx('getUser') getUser: () => User) {
     const userId = getUser()._id;
     const count = this.contractsService.getUserSubscription(userId);
 
@@ -75,8 +67,7 @@ export default class ProjectsResolver {
   @Mutation(() => ContractResponse)
   async assignDesignerToProject(
     @Arg('AssignDesignerInput') input: assignDesignerInput,
-    @Ctx('getUser') getUser: () => User,
-    @PubSub() pubSub: PubSubEngine
+    @Ctx('getUser') getUser: () => User
   ) {
     const adminId = getUser()?._id;
     console.log(adminId);
@@ -122,10 +113,7 @@ export default class ProjectsResolver {
 
   @Authorized([UserRole.ADMIN])
   @Query(() => ContractsResponse)
-  async getAllProjects(
-    @Ctx('getUser')
-    getUser: () => User
-  ) {
+  async getAllProjects() {
     return this.contractsService.getAllProjects();
   }
 

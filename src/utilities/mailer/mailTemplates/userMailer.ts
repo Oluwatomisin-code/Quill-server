@@ -4,7 +4,7 @@ import {Mail} from '../mailer.types';
 
 export default class UserMailer extends Mailer {
   private mailOptions: Mail;
-  private template: String;
+
   constructor() {
     super();
   }

@@ -3,7 +3,6 @@ import {
   modelOptions,
   pre,
   prop,
-  Ref,
   ReturnModelType,
   Severity,
 } from '@typegoose/typegoose';
@@ -33,8 +32,7 @@ import login from './methods/login';
 import verifyEmail from './methods/verifyEmail';
 import resendOtp from './methods/resendOtp';
 import updatePushToken from './methods/updatePushToken';
-import Company from '../../projects/models/project.schema';
-import Project from '../../projects/models/project.schema';
+
 import getAllUsers from './methods/getAllUsers';
 import getClients from './methods/getClients';
 import getUsers from './methods/getUsers';

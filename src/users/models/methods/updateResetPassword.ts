@@ -18,7 +18,7 @@ export async function updateResetPassword(
   if (!user) throw Error('Invalid reset code');
   new UserMailer().updateResetPassword({
     email: user.email,
-    name: user.firstName,
+    name: (user as any)?.firstName,
   });
   user.otp = '';
   await user.save();

@@ -2,11 +2,7 @@
 /* eslint-disable no-empty-function */
 import {Arg, Authorized, Ctx, Mutation, Query, Resolver} from 'type-graphql';
 import {Service} from 'typedi';
-import {
-  EditUserInput,
-  // getUsersInput,
-  usersFilterInput,
-} from '../dto/inputs/user.input';
+import {EditUserInput} from '../dto/inputs/user.input';
 import {UserService} from '../../users/services/user.service';
 import User, {UserRole} from '../../users/models/users.schema';
 import {

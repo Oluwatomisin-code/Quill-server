@@ -74,6 +74,7 @@ export default class SubscriptionResolver {
       endDate: new Date().setMonth(new Date().getMonth() + 1),
     });
 
+    console.log(newSubscription, 'newSub');
     const updatedUserSub = await UserModel.findOneAndUpdate(
       {email: email},
       {

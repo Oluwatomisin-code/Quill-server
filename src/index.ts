@@ -28,17 +28,17 @@ import {Context} from 'graphql-ws';
 import {GraphQLError} from 'graphql';
 import {ApolloServerErrorCode} from './config/types/apollo.types';
 import {ApolloServerPluginLandingPageGraphQLPlayground} from 'apollo-server-core/dist/plugin/landingPage/graphqlPlayground';
-import {graphqlUploadExpress} from 'graphql-upload';
+
 // import {CronJob} from './cronJob/index';
 import {pubSub} from './graphql/pubSub';
-import Stripe from 'stripe';
+
 import SubscriptionResolver from './subscription/resolvers/subscription.resolvers';
 
 // import {BackgroundTask} from './utilities/cron/backgroundTask';
 // import StartRecruitmentDb from './startup/recruitmentDb';
 
 async function bootstrap() {
-  const app = express();
+  const app: any = express();
 
   const httpServer = http.createServer(app);
 
@@ -68,12 +68,18 @@ async function bootstrap() {
     //   }
     // },
     // origin: '*',
+    // origin: [
+    //   process.env.CLIENT_SIDE_URL,
+    //   process.env.GRAPH_STUDIO,
+    //   'http://localhost:45000',
+    //   'http://localhost:3000',
+    // ],
     origin: [
-      process.env.CLIENT_SIDE_URL,
-      process.env.GRAPH_STUDIO,
+      process.env.CLIENT_SIDE_URL || '', // Ensure a valid string
+      process.env.GRAPH_STUDIO || '', // Ensure a valid string
       'http://localhost:45000',
       'http://localhost:3000',
-    ],
+    ].filter(Boolean), // This removes any falsy values (including undefined)
 
     credentials: true,
   };
@@ -138,7 +144,7 @@ async function bootstrap() {
   app.post(
     '/stripe-webhook',
     express.json({type: 'application/json'}),
-    async (req, res) => {
+    async (req: express.Request, res: express.Response) => {
       const event = req.body;
       console.log(event, 'from here');
 
