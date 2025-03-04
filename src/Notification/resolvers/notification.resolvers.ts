@@ -15,7 +15,10 @@ import {
   notificationSub,
 } from '../dto/notification.returnTypes';
 import User, {UserRole} from '../../users/models/users.schema';
-import {notificationsFilterInput} from '../dto/notification.input';
+import {
+  notificationsFilterInput,
+  NotificationSubscriptionArgs,
+} from '../dto/notification.input';
 
 @Service()
 @Resolver()
@@ -52,10 +55,10 @@ export default class NotificationResolver {
     topics: 'NOTIFICATIONS',
   })
   newNotification(
-    @Root() notification: notificationSub
-    // @Arg('args') args: NotificationSubscriptionArgs
+    @Root() notification: notificationSub,
+    @Arg('args') args: NotificationSubscriptionArgs
   ): notificationSub {
-    console.log(notification, 'called');
+    console.log(notification, args, 'called');
 
     return notification;
   }
