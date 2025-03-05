@@ -57,29 +57,12 @@ async function bootstrap() {
 
   // const whitelist = [process.env.CLIENT_SIDE_URL, process.env.GRAPH_STUDIO];
   const corsOptions = {
-    // origin(
-    //   origin: string | undefined,
-    //   callback: (arg0: Error | null, arg1: boolean | undefined) => void
-    // ) {
-    //   if (origin === undefined || whitelist.indexOf(origin) !== -1) {
-    //     callback(null, true);
-    //   } else {
-    //     callback(new Error('Not allowed by CORS'), false);
-    //   }
-    // },
-    // origin: '*',
-    // origin: [
-    //   process.env.CLIENT_SIDE_URL,
-    //   process.env.GRAPH_STUDIO,
-    //   'http://localhost:45000',
-    //   'http://localhost:3000',
-    // ],
     origin: [
-      process.env.CLIENT_SIDE_URL || '', // Ensure a valid string
-      process.env.GRAPH_STUDIO || '', // Ensure a valid string
+      process.env.CLIENT_SIDE_URL || '',
+      process.env.GRAPH_STUDIO || '',
       'http://localhost:45000',
       'http://localhost:3000',
-    ].filter(Boolean), // This removes any falsy values (including undefined)
+    ].filter(Boolean),
 
     credentials: true,
   };
@@ -107,12 +90,11 @@ async function bootstrap() {
       secret: process.env.SESSION_SECRET as string,
       resave: false,
       saveUninitialized: false,
-      // proxy: false,
-      // secure: process.env.NODE_ENV !== "production",
+      proxy: false,
       cookie: {
-        maxAge: 1000 * 60 * 60 * 24, // One day
-        sameSite: process.env.NODE_ENV !== 'local' ? 'none' : 'lax',
-        secure: process.env.NODE_ENV !== 'local' ? true : false,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === 'production',
       },
       store,
       unset: 'destroy',
