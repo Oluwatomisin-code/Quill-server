@@ -84,7 +84,7 @@ async function bootstrap() {
     app.set('trust proxy', 1);
   }
 
-  const isProduction = process.env.NODE_ENV === 'production';
+  // const isProduction = process.env.NODE_ENV === 'production';
   app.use(
     session({
       name: 'quill',
@@ -94,8 +94,9 @@ async function bootstrap() {
       proxy: false,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24,
-        sameSite: isProduction ? 'lax' : 'lax',
-        secure: isProduction,
+        // sameSite: isProduction ? 'lax' : 'lax',
+        sameSite: 'lax',
+        secure: true,
         httpOnly: true,
       },
       store,
@@ -104,7 +105,7 @@ async function bootstrap() {
   );
 
   // Trust the proxy (required for HTTPS in environments like Render)
-  if (isProduction) {
+  if (true) {
     app.set('trust proxy', 1); // Trust the first proxy (e.g., Render's load balancer)
   }
 
