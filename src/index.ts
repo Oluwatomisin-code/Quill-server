@@ -84,6 +84,7 @@ async function bootstrap() {
     app.set('trust proxy', 1);
   }
 
+  const isProduction = process.env.NODE_ENV === 'production';
   app.use(
     session({
       name: 'quill',
@@ -93,13 +94,18 @@ async function bootstrap() {
       proxy: false,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24,
-        sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
-        secure: process.env.NODE_ENV === 'production',
+        sameSite: isProduction ? 'none' : 'lax',
+        secure: isProduction,
       },
       store,
       unset: 'destroy',
     })
   );
+
+  // Trust the proxy (required for HTTPS in environments like Render)
+  if (isProduction) {
+    app.set('trust proxy', 1); // Trust the first proxy (e.g., Render's load balancer)
+  }
 
   // initialize passport for auth
   app.use(passport.initialize());
