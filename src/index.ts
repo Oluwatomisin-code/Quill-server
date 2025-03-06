@@ -94,7 +94,7 @@ async function bootstrap() {
       proxy: false,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24,
-        sameSite: isProduction ? 'none' : 'lax',
+        sameSite: isProduction ? 'lax' : 'lax',
         secure: isProduction,
         httpOnly: true,
       },
