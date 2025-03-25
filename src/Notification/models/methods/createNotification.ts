@@ -2,8 +2,9 @@ import {pubSub} from '../../../graphql/pubSub';
 import nodemailer from 'nodemailer';
 import {ReturnModelType} from '@typegoose/typegoose';
 import {createNotificationInput} from 'Notification/dto/notification.input';
-import Notification from 'Notification/models/notification.model'; // Adjust the import to where your Notification model is located
+import Notification from 'Notification/models/notification.model';
 import User from 'users/models/users.schema';
+import {GraphQLError} from 'graphql';
 
 // Initialize Nodemailer transporter
 const transporter = nodemailer.createTransport({
@@ -22,29 +23,42 @@ const createNotification = async (
   try {
     // Step 1: Create the notification in DB
     const newDoc = new notificationModel({...input});
-    const notification = await newDoc.save(); // Await the save
+    const notification = await newDoc.save();
 
     // Step 2: Populate the 'user' and 'sender' fields
-    await notification.populate(['user', 'sender']); // Await the populate
+    await notification.populate(['user', 'sender']);
 
-    if (notification) {
-      console.log(notification, 'notification');
-      // Step 3: Publish to PubSub (for GraphQL subscription)
-      pubSub.publish('NOTIFICATIONS', notification);
+    if (!notification) {
+      throw new GraphQLError('Failed to create notification');
+    }
 
-      // Step 4: Send Email Notification (if applicable)
-      if (input.user && (notification.user as User)?.email) {
-        await sendEmailNotification(
-          (notification.user as User)?.email,
-          notification
-        );
-      }
+    // Step 3: Publish to PubSub (for GraphQL subscription)
+    const notificationPayload = {
+      ...notification.toObject(),
+      user:
+        typeof notification.user === 'string'
+          ? notification.user
+          : notification.user?._id,
+      sender:
+        typeof notification.sender === 'string'
+          ? notification.sender
+          : notification.sender?._id,
+    };
+
+    await pubSub.publish('NOTIFICATIONS', notificationPayload);
+
+    // Step 4: Send Email Notification (if applicable)
+    if (input.user && (notification.user as User)?.email) {
+      await sendEmailNotification(
+        (notification.user as User)?.email,
+        notification
+      );
     }
 
     return notification;
   } catch (error) {
     console.error('Error creating notification:', error);
-    throw new Error('Failed to create notification');
+    throw new GraphQLError('Failed to create notification');
   }
 };
 
@@ -52,14 +66,13 @@ const createNotification = async (
 const sendEmailNotification = async (email: string, notification: any) => {
   try {
     const mailOptions = {
-      from: 'your-email@gmail.com', // sender address
-      to: email, // recipient email
-      subject: 'New Notification', // email subject
-      text: notification.subtext, // email body text
-      html: `<p>${notification.subtext}</p>`, // email body HTML
+      from: 'your-email@gmail.com',
+      to: email,
+      subject: 'New Notification',
+      text: notification.subtext,
+      html: `<p>${notification.subtext}</p>`,
     };
 
-    // Send email using Nodemailer
     await transporter.sendMail(mailOptions);
   } catch (error) {
     console.error('Error sending email:', error);

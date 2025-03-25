@@ -53,13 +53,16 @@ export default class NotificationResolver {
   // Subscription to listen for new notifications
   @Subscription(() => notificationSub, {
     topics: 'NOTIFICATIONS',
+    filter: ({payload, args}) => {
+      if (!args?.userId) return true; // If no userId specified, receive all notifications
+      return payload.user?.toString() === args.userId;
+    },
   })
   newNotification(
     @Root() notification: notificationSub,
     @Arg('args') args: NotificationSubscriptionArgs
   ): notificationSub {
-    console.log(notification, args, 'called');
-
+    console.log('Notification received:', notification);
     return notification;
   }
 }

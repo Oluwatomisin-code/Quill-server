@@ -94,10 +94,12 @@ async function bootstrap() {
       proxy: true,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24,
-        // sameSite: isProduction ? 'lax' : 'lax',
-        sameSite: 'none',
-        secure: true,
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
+        domain:
+          process.env.NODE_ENV === 'production' ? '.vercel.app' : undefined,
+        // process.env.NODE_ENV === 'production' ? '.quillnco.com' : undefined,
       },
       store,
       unset: 'destroy',

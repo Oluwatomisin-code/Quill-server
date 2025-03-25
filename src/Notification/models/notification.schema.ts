@@ -9,10 +9,9 @@ import {
   notificationsFilterInput,
 } from 'Notification/dto/notification.input';
 import createNotification from './methods/createNotification';
-
+import createNotificationForAdmin from './methods/createNotificationForAdmin';
 import deleteNotifications from './methods/deleteNotification';
 import Project from 'projects/models/project.schema';
-import notifyAdmins from './methods/createNotificationForAdmin';
 
 export enum NotificationType {
   PROJECTCREATED = 'PROJECT_CREATED',
@@ -96,11 +95,11 @@ class Notification {
   ) {
     return createNotification(this, input);
   }
+
   public static async createNotificationForAdmin(
-    // this: ReturnModelType<typeof Notification>,
     input: createNotificationInput
-  ) {
-    return notifyAdmins(input);
+  ): Promise<any> {
+    return createNotificationForAdmin(input);
   }
 
   public static async deleteNotifications(

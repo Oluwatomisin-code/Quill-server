@@ -1,10 +1,13 @@
 import {getModelForClass} from '@typegoose/typegoose';
 import {pubSub} from '../../../graphql/pubSub';
 import {createNotificationInput} from 'Notification/dto/notification.input';
-import Notification from '../../../Notification/models/notification.model'; // Adjust to your actual path
+import Notification from 'Notification/models/notification.model';
 import User, {UserRole} from '../../../users/models/users.schema';
+import {ReturnModelType, DocumentType} from '@typegoose/typegoose';
+import {GraphQLError} from 'graphql';
 
 const userModel = getModelForClass(User);
+const NotificationModel = getModelForClass(Notification);
 
 // Function to create and send notifications to all admins
 const notifyAdmins = async (input: createNotificationInput) => {
@@ -15,7 +18,7 @@ const notifyAdmins = async (input: createNotificationInput) => {
     if (adminUsers.length > 0) {
       // Step 2: Create and send a notification to each admin
       for (const admin of adminUsers) {
-        const notification = await createNotificationForAdmin(admin._id, input);
+        const notification = await createNotificationForAdmin(input);
 
         console.log(notification, 'notification');
 
@@ -39,22 +42,38 @@ const notifyAdmins = async (input: createNotificationInput) => {
 
 // Helper function to create notification for each admin
 const createNotificationForAdmin = async (
-  adminId: string,
   input: createNotificationInput
-) => {
+): Promise<any> => {
   try {
-    const notification = new Notification({
+    // Step 1: Create the notification in DB
+    const newDoc = new NotificationModel({
       ...input,
-      user: adminId, // The admin userId
-      title: 'Admin Notification', // Customize as needed
+      user: null, // Admin notifications don't have a specific user
     });
+    const notification = await newDoc.save();
 
-    const newNotification = await notification.save(); // Save the notification to DB
-    return newNotification;
-    // return await newNotification.populate(['user', 'sender']);
+    // Step 2: Populate the 'sender' field
+    await notification.populate(['sender']);
+
+    if (!notification) {
+      throw new GraphQLError('Failed to create admin notification');
+    }
+
+    // Step 3: Publish to PubSub (for GraphQL subscription)
+    const notificationPayload = {
+      ...notification.toObject(),
+      sender:
+        typeof notification.sender === 'string'
+          ? notification.sender
+          : notification.sender?._id,
+    };
+
+    await pubSub.publish('NOTIFICATIONS', notificationPayload);
+
+    return notification;
   } catch (error) {
-    console.error('Error creating notification for admin:', error);
-    throw new Error('Failed to create notification for admin');
+    console.error('Error creating admin notification:', error);
+    throw new GraphQLError('Failed to create admin notification');
   }
 };
 

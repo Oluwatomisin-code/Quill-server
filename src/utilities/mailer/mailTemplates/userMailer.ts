@@ -35,6 +35,61 @@ export default class UserMailer extends Mailer {
     };
     this.sendMail(this.mailOptions);
   }
+
+  async inviteLancer({
+    email,
+    password,
+    name,
+    role,
+  }: {
+    email: string;
+    password: string;
+    name: string;
+    role: string;
+  }) {
+    this.mailOptions = {
+      to: email,
+      subject: `Welcome to Quill as a ${role}`,
+      html: await mailCustomizer(
+        '../mailer/html/email-templates/lancer-invite.html',
+        {
+          email,
+          password,
+          name,
+          role,
+        }
+      ),
+    };
+    this.sendMail(this.mailOptions);
+  }
+
+  async inviteAdmin({
+    email,
+    password,
+    name,
+    role,
+  }: {
+    email: string;
+    password: string;
+    name: string;
+    role: string;
+  }) {
+    this.mailOptions = {
+      to: email,
+      subject: `Welcome to Quill as an Administrator`,
+      html: await mailCustomizer(
+        '../mailer/html/email-templates/admin-invite.html',
+        {
+          email,
+          password,
+          name,
+          role,
+        }
+      ),
+    };
+    this.sendMail(this.mailOptions);
+  }
+
   async inviteUser({
     email,
     inviteToken,
@@ -46,9 +101,8 @@ export default class UserMailer extends Mailer {
   }) {
     this.mailOptions = {
       to: email,
-      subject: `Invitation to Punch LLC Productivity Suite`,
+      subject: `Invitation to Quill nco`,
       html: await mailCustomizer('./html/invite.html', {
-        inviteLink: `${process.env.CLIENT_SIDE_URL}/auth/signup?t=${inviteToken}`,
         name,
       }),
     };
