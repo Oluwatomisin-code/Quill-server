@@ -2,7 +2,11 @@
 /* eslint-disable no-empty-function */
 import {Arg, Authorized, Ctx, Mutation, Query, Resolver} from 'type-graphql';
 import {Service} from 'typedi';
-import {EditUserInput} from '../dto/inputs/user.input';
+import {
+  EditUserInput,
+  inviteAdminInput,
+  inviteLancerInput,
+} from '../dto/inputs/user.input';
 import {UserService} from '../../users/services/user.service';
 import User, {UserRole} from '../../users/models/users.schema';
 import {
@@ -111,5 +115,17 @@ export default class UserResolver {
   @Query(() => UserResponse)
   async getUserById(@Arg('userId') userId: string) {
     return this.userAuthService.getUser(userId);
+  }
+
+  @Authorized([UserRole.ADMIN])
+  @Mutation(() => UserResponse)
+  async inviteDesigner(@Arg('input') input: inviteLancerInput) {
+    return this.userService.inviteDesigner(input);
+  }
+
+  @Authorized([UserRole.ADMIN])
+  @Mutation(() => UserResponse)
+  async inviteAdmin(@Arg('input') input: inviteAdminInput) {
+    return this.userService.inviteAdmin(input);
   }
 }
