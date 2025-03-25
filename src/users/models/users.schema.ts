@@ -18,6 +18,8 @@ import {
   CreateUserInput,
   verifyInput,
   resendOtpInput,
+  inviteLancerInput,
+  inviteAdminInput,
 } from 'users/dto/inputs/user.input';
 import editUser from './methods/editUser';
 import forgotPassword from './methods/forgotPassword';
@@ -38,6 +40,8 @@ import getClients from './methods/getClients';
 import getUsers from './methods/getUsers';
 import getLancers from './methods/getDesigners';
 import getMessageableUsers from './methods/getMessageableuser';
+import inviteLancer from './methods/inviteLancer';
+import inviteAdmin from './methods/inviteAdmin';
 
 export enum UserRole {
   ADMIN = 'ADMIN',
@@ -280,6 +284,20 @@ class User {
     }
   ) {
     return updatePushToken(this, input);
+  }
+
+  public static async inviteLancer(
+    this: ReturnModelType<typeof User>,
+    input: inviteLancerInput
+  ) {
+    return inviteLancer(this, input);
+  }
+
+  public static async inviteAdmin(
+    this: ReturnModelType<typeof User>,
+    input: inviteAdminInput
+  ) {
+    return inviteAdmin(this, input);
   }
 }
 

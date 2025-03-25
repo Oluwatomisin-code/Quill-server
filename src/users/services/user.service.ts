@@ -7,6 +7,9 @@ import {GraphQLError} from 'graphql';
 import {
   EditBuyerStatusInput,
   EditUserInput,
+  inviteAdminInput,
+  inviteLancerInput,
+
   // updateNotificationSettingInput,
   // updateSecuritySettingInput,
   usersFilterInput,
@@ -130,6 +133,24 @@ export class UserService {
   async updatePushToken(input: {token: string; email: string}) {
     try {
       const user = await UserModel.updatePushToken(input);
+      return new ClientResponse(201, true, 'done', user);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
+  }
+
+  async inviteDesigner(input: inviteLancerInput) {
+    try {
+      const user = await UserModel.inviteLancer(input);
+      return new ClientResponse(201, true, 'done', user);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
+  }
+
+  async inviteAdmin(input: inviteAdminInput) {
+    try {
+      const user = await UserModel.inviteAdmin(input);
       return new ClientResponse(201, true, 'done', user);
     } catch (error) {
       throw new GraphQLError(error);

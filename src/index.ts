@@ -91,11 +91,11 @@ async function bootstrap() {
       secret: process.env.SESSION_SECRET as string,
       resave: false,
       saveUninitialized: false,
-      proxy: false,
+      proxy: true,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24,
         // sameSite: isProduction ? 'lax' : 'lax',
-        sameSite: 'lax',
+        sameSite: 'none',
         secure: true,
         httpOnly: true,
       },
@@ -104,10 +104,22 @@ async function bootstrap() {
     })
   );
 
-  // Trust the proxy (required for HTTPS in environments like Render)
-  if (true) {
-    app.set('trust proxy', 1); // Trust the first proxy (e.g., Render's load balancer)
-  }
+  // app.use(function (req, res, next) {
+  //   res.set('credentials', 'include');
+  //   res.set('Access-Control-Allow-Credentials', true);
+  //   res.set('Access-Control-Allow-Origin', req.headers.origin);
+  //   res.set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  //   res.set(
+  //     'Access-Control-Allow-Headers',
+  //     'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+  //   );
+  //   next();
+  // });
+
+  // // Trust the proxy (required for HTTPS in environments like Render)
+  // if (true) {
+  //   app.set('trust proxy', 1); // Trust the first proxy (e.g., Render's load balancer)
+  // }
 
   // initialize passport for auth
   app.use(passport.initialize());

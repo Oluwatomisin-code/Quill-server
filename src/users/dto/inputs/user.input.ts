@@ -177,3 +177,15 @@ export class updatePushTokenInput {
   @Field({nullable: false})
   token: string;
 }
+
+@InputType()
+export class inviteLancerInput {
+  @Field({nullable: false})
+  email: string;
+}
+
+@InputType()
+export class inviteAdminInput {
+  @Field({nullable: false})
+  email: string;
+}
