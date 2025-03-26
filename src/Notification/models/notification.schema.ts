@@ -38,7 +38,7 @@ registerEnumType(NotificationReferenceType, {
 });
 
 @ObjectType()
-class Notification {
+export class Notification {
   @Field()
   _id?: string;
 
@@ -97,9 +97,10 @@ class Notification {
   }
 
   public static async createNotificationForAdmin(
+    this: ReturnModelType<typeof Notification>,
     input: createNotificationInput
   ): Promise<any> {
-    return createNotificationForAdmin(input);
+    return createNotificationForAdmin(input, this);
   }
 
   public static async deleteNotifications(
@@ -109,5 +110,3 @@ class Notification {
     return deleteNotifications(this, input);
   }
 }
-
-export default Notification;

@@ -1,6 +1,6 @@
 import {ReturnModelType} from '@typegoose/typegoose';
 
-import Notification from '../notification.schema';
+import {Notification} from '../notification.schema';
 import {notificationsFilterInput} from '../../../Notification/dto/notification.input';
 
 export default async function getNotifications(

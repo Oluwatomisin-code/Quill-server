@@ -1,4 +1,4 @@
-import Notification from '../models/notification.schema';
+import {Notification} from '../models/notification.schema';
 import {Field, ObjectType} from 'type-graphql';
 import ResolverResponse from '../../utilities/resolverResponse';
 
