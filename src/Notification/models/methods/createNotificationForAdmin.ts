@@ -3,7 +3,7 @@ import {pubSub} from '../../../graphql/pubSub';
 import {createNotificationInput} from 'Notification/dto/notification.input';
 import Notification from 'Notification/models/notification.model';
 import User, {UserRole} from '../../../users/models/users.schema';
-import {ReturnModelType, DocumentType} from '@typegoose/typegoose';
+// import {ReturnModelType, DocumentType} from '@typegoose/typegoose';
 import {GraphQLError} from 'graphql';
 
 const userModel = getModelForClass(User);

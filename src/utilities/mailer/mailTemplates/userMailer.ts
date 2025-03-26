@@ -90,15 +90,7 @@ export default class UserMailer extends Mailer {
     this.sendMail(this.mailOptions);
   }
 
-  async inviteUser({
-    email,
-    inviteToken,
-    name,
-  }: {
-    email: string;
-    name: string;
-    inviteToken: string;
-  }) {
+  async inviteUser({email, name}: {email: string; name: string}) {
     this.mailOptions = {
       to: email,
       subject: `Invitation to Quill nco`,

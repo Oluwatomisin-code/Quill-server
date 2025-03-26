@@ -62,7 +62,7 @@ export default class NotificationResolver {
     @Root() notification: notificationSub,
     @Arg('args') args: NotificationSubscriptionArgs
   ): notificationSub {
-    console.log('Notification received:', notification);
+    console.log('Notification received:', notification, args);
     return notification;
   }
 }
