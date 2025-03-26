@@ -1,9 +1,9 @@
 import {pubSub} from '../../../graphql/pubSub';
 import nodemailer from 'nodemailer';
 import {ReturnModelType} from '@typegoose/typegoose';
-import {createNotificationInput} from 'Notification/dto/notification.input';
-import Notification from 'Notification/models/notification.model';
-import User from 'users/models/users.schema';
+import {createNotificationInput} from '../../../Notification/dto/notification.input';
+import Notification from '../../../Notification/models/notification.model';
+import User from '../../../users/models/users.schema';
 import {GraphQLError} from 'graphql';
 
 // Initialize Nodemailer transporter
