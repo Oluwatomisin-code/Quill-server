@@ -11,13 +11,15 @@ const verifyFn = async (
   password: unknown,
   done: CallbackFn<User | null>
 ): Promise<void> => {
-  console.log('we got in here to verify');
+  console.log('Starting login verification for email:', email);
   const matchingUser: User | null = await UserModel.findOne({email});
   if (!matchingUser) {
+    console.log('No user found for email:', email);
     const error = new Error('Invalid email or password');
     done(error, null);
   } else {
     if (!matchingUser.password) {
+      console.log('User found but no password set for email:', email);
       const error = new Error('Please try another login method');
       done(error, null);
     } else {
@@ -25,8 +27,9 @@ const verifyFn = async (
         password as string,
         matchingUser.password
       );
+      console.log('Password match result:', isMatch, 'for email:', email);
       const error = isMatch ? null : new Error('Invalid email or password');
-      done(error, matchingUser);
+      done(error, isMatch ? matchingUser : null);
     }
   }
 };
@@ -44,11 +47,14 @@ declare global {
 }
 
 passport.serializeUser((user: Express.User, done) => {
+  console.log('Serializing user:', user._id);
   return done(null, user._id);
 });
 
 passport.deserializeUser((id: string, done) => {
+  console.log('Deserializing user:', id);
   UserModel.findById(id, (_err: Error, user: Express.User) => {
+    console.log('Deserialized user result:', user ? 'found' : 'not found');
     return done(null, user);
   });
 });

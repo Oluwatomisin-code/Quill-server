@@ -45,17 +45,9 @@ async function bootstrap() {
   // Instantiate DB
   Startdb();
 
-  // CronJob.startCronJob();
+  // Set trust proxy before any middleware
+  app.set('trust proxy', 1);
 
-  const schema = await buildSchema({
-    resolvers,
-    pubSub: pubSub,
-    nullableByDefault: true,
-    container: Container,
-    authChecker,
-  });
-
-  // const whitelist = [process.env.CLIENT_SIDE_URL, process.env.GRAPH_STUDIO];
   const corsOptions = {
     origin: [
       process.env.CLIENT_SIDE_URL || '',
@@ -63,8 +55,9 @@ async function bootstrap() {
       'http://localhost:45000',
       'http://localhost:3000',
     ].filter(Boolean),
-
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
   };
 
   // protecting our api from unauthorized origins
