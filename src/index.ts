@@ -98,11 +98,11 @@ async function bootstrap() {
         sameSite: 'none',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        domain:
-          process.env.NODE_ENV === 'production'
-            ? process.env.COOKIE_DOMAIN || '.vercel.app'
-            : undefined,
-        path: '/',
+        // domain:
+        //   process.env.NODE_ENV === 'production'
+        //     ? process.env.COOKIE_DOMAIN || '.vercel.app'
+        //     : undefined,
+        // path: '/',
       },
       store,
       unset: 'destroy',
