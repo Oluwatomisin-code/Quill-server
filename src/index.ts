@@ -95,7 +95,7 @@ async function bootstrap() {
       proxy: true,
       cookie: {
         maxAge: 1000 * 60 * 60 * 24, // 24 hours
-        sameSite: 'none',
+        sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
         // domain:
