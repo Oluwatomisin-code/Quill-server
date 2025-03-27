@@ -45,6 +45,14 @@ async function bootstrap() {
   // Instantiate DB
   Startdb();
 
+  const schema = await buildSchema({
+    resolvers,
+    pubSub: pubSub,
+    nullableByDefault: true,
+    container: Container,
+    authChecker,
+  });
+
   // Set trust proxy before any middleware
   app.set('trust proxy', 1);
 
@@ -90,9 +98,10 @@ async function bootstrap() {
         sameSite: 'lax',
         secure: process.env.NODE_ENV === 'production',
         httpOnly: true,
-        domain: process.env.NODE_ENV === 'production' 
-          ? process.env.COOKIE_DOMAIN || '.vercel.app' 
-          : undefined,
+        domain:
+          process.env.NODE_ENV === 'production'
+            ? process.env.COOKIE_DOMAIN || '.vercel.app'
+            : undefined,
         path: '/',
       },
       store,
